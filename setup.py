@@ -1,14 +1,18 @@
 from distutils.core import setup
 
+MAJOR = 0
+MINOR = 1
+PATCH = 3
+
 setup(
     name='santa',
     packages=['santa'],
-    version='0.1.2',
+    version='{}.{}.{}'.format(MAJOR, MINOR, PATCH),
     description='Assign a secret santa over email',
     author='jarhill0',
     author_email='jarhill0@gmail.com',
     url='https://github.com/jarhill0/santa/',
-    download_url='https://github.com/jarhill0/santa/archive/0.1.2.tar.gz',
+    download_url='https://github.com/jarhill0/santa/archive/{}.{}.{}.tar.gz'.format(MAJOR, MINOR, PATCH),
     keywords=['secret', 'santa', 'email'],
     classifiers=[],
     install_requires=[
