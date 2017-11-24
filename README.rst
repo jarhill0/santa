@@ -1,13 +1,19 @@
 Santa
 =====
 
-A Python project to randomly pair Secret Santa gifters and recipients, following a set of constraints, and email 
+A Python 3 project to randomly pair Secret Santa gifters and recipients, following a set of constraints, and email
 them, all without the operator seeing the assignments.
 
 Requirements
 ------------
 
 - yagmail
+
+Installation
+------------
+
+Install with ``pip3 install santa`` or ``python3 -m pip install santa``. Preceded either command with ``sudo`` if it
+fails due to insufficient permissions.
 
 Usage
 -----
