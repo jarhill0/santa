@@ -3,7 +3,7 @@ from os import path
 
 MAJOR = 0
 MINOR = 2
-PATCH = 'dev'
+PATCH = 0
 
 HERE = path.abspath(path.dirname(__file__))
 with open(path.join(HERE, 'README.rst'), encoding='utf-8') as fp:
