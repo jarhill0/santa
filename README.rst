@@ -46,12 +46,46 @@ Usage
                     sally: [john, linus]}
 
 4. Pass these into the function ``santa.run(person_list, invalid_links=None, *, message='', subject='Secret Santa')``. 
-   This will match people and send emails. If a match is not found, the program will raise ``santa.SolvingError``. If you
-   haven't already `configured yagmail <https://github.com/kootenpv/yagmail/blob/master/README.md#username-and-password>`_, it
-   will prompt you for a username and password.
+   This will match people and send emails. If a match is not found, the program will raise ``santa.SolvingError``. If
+   you haven't already `configured yagmail <https://github.com/kootenpv/yagmail/blob/master/README
+   .md#username-and-password>`_, it will prompt you for a username and password.
 
 .. code-block:: python
 
     santa.run(people, restrictions, message='Thank you for participating.')
 
-5. If there are any errors sending emails, they will be printed to the console in the form of a list of tuples of ``(gifter, recipient)``. You, the operator, must decide how to handle this.
+5. If there are any errors sending emails, they will be printed to the console in the form of a list of tuples of
+   ``(gifter, recipient)``. You, the operator, must decide how to handle this.
+
+Options
+-------
+
+By default, santa will solve using the ``'loop'`` strategy, which results in a "gifting loop." As of version 0.2,
+santa can also solve with the method ``'draw'``, which simulates drawing tickets from a hat. This method will not
+necessarily result in a loop, but it will be possible for "pairs" of two gifters giving to each other to occur.
+
+To set a solving mode, pass it into ``santa.run()`` like so:
+
+.. code-block:: python
+
+    santa.run(people, restrictions, solve_mode='loop')
+
+The current list of solving modes is as follows:
+
+- ``'loop'`` (default)
+- ``'draw'``
+
+Santa also has options for output modes. By default, it will email recipients. But as of version 0.2, it also has the
+option to save output to text files in the current working directory. These can be attached to emails and sent
+without the operator having to find out who is assigned to whom.
+
+To set an output mode, pass it into ``santa.run()`` like so:
+
+.. code-block:: python
+
+    santa.run(people, restrictions, out_mode='text')
+
+The current list of output modes is as follows:
+
+- ``'email'`` (default)
+- ``'text'``
