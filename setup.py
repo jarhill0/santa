@@ -3,7 +3,7 @@ from os import path
 
 MAJOR = 0
 MINOR = 2
-PATCH = 0
+PATCH = 1
 
 HERE = path.abspath(path.dirname(__file__))
 try:
