@@ -12,7 +12,7 @@ Requirements
 Installation
 ------------
 
-Install with ``pip3 install santa`` or ``python3 -m pip install santa``. Preceded either command with ``sudo`` if it
+Install with ``pip3 install santa`` or ``python3 -m pip install santa``. Precede either command with ``sudo`` if it
 fails due to insufficient permissions.
 
 Usage
