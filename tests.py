@@ -40,12 +40,12 @@ def test_validation():
     assert santa.solver.is_valid(sol2, restrictions)
 
 
-def test_solving():
+def test_loop():
     restrictions = {john: [sally, guido], sally: [john]}
     people = [john, sally, linus, guido]
 
     try:
-        santa.solver.solve(people, restrictions)
+        santa.solver.loop(people, restrictions)
     except santa.SolvingError:
         assert False
     else:
@@ -54,8 +54,45 @@ def test_solving():
     restrictions = {john: [sally, guido, linus]}
 
     try:
-        santa.solver.solve(people, restrictions)
+        santa.solver.loop(people, restrictions)
     except santa.SolvingError:
         assert True
     else:
         assert False
+
+
+def test_draw():
+    def validate_solution(gifters, restr):
+        for gifter, recipient in gifters.items():
+            if recipient in restr.get(gifter, []):
+                return False
+        return True
+
+    restrictions = {john: [sally], sally: [guido], guido: [linus], linus: [john]}  # last year's pairings
+    people = [john, sally, linus, guido]
+
+    for _ in range(10):
+        try:
+            solved = santa.solver.draw(people)
+        except santa.SolvingError:
+            assert False
+        else:
+            assert validate_solution(solved, dict())
+
+    for _ in range(10):
+        try:
+            solved = santa.solver.draw(people, restrictions)
+        except santa.SolvingError:
+            assert False
+        else:
+            assert validate_solution(solved, restrictions)
+
+    restrictions = {john: [sally, linus, guido]}
+
+    for _ in range(3):
+        try:
+            santa.solver.draw(people, restrictions)
+        except santa.SolvingError:
+            assert True
+        else:
+            assert False
