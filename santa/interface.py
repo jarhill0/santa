@@ -1,10 +1,11 @@
 from .email_util import send_interface
 from .person import Person
 from .solver import solve
+from .text_util import save
 
 
-def run(person_list, invalid_links=None, *, message='', subject='Secret Santa', username=None, password=None):
-    """Solve and email gifters. Raises SolvingError if it cannot solve."""
+def run(person_list, invalid_links=None, **kwargs):
+    """Solve and output. Raises SolvingError if it cannot solve."""
     if invalid_links is None:
         invalid_links = dict()
     if not isinstance(person_list, list):
@@ -14,8 +15,19 @@ def run(person_list, invalid_links=None, *, message='', subject='Secret Santa', 
     if not all(isinstance(p, Person) for p in person_list):
         raise ValueError('Every item in person_list must be a Person')
 
-    solved = solve(person_list, invalid_links)  # solve
-    failed = send_interface(solved, message, subject, username, password)  # send emails (errors are returned)
+    message = kwargs.get('message', '')
+    subject = kwargs.get('subject', 'Secret Santa')
+    username = kwargs.get('username', None)
+    password = kwargs.get('password', None)
+    out_mode = kwargs.get('out_mode', 'email').lower()
 
-    if failed:
-        print('{} failures: {}'.format(len(failed), failed))
+    solved = solve(person_list, invalid_links)  # solve
+
+    if out_mode == 'email':
+        failed = send_interface(solved, message, subject, username, password)  # send emails (errors are returned)
+        if failed:
+            print('{} failures: {}'.format(len(failed), failed))
+    elif out_mode == 'text':
+        save(solved)
+    else:
+        raise ValueError('Unknown output mode "{}"'.format(out_mode))
