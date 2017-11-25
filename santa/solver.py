@@ -4,7 +4,7 @@ import time
 TIMEOUT = 0.2
 
 
-def solve(people, invalid_links):
+def loop(people, invalid_links):
     """Determine who gives to whom. `people`: a list of Person objects. `invalid_links`: a dict that defines who
     can't give to whom. Returns a dict. Raises SolvingError if it cannot solve."""
     start_time = time.time()
@@ -34,3 +34,24 @@ def dictize(people_list):
 
 class SolvingError(Exception):
     pass
+
+
+def draw(people, invalid_links=None):
+    """Solve with a ticket-drawing simulation."""
+    if invalid_links is None:
+        invalid_links = dict()
+    start_time = time.time()
+    while True:
+        tickets = people[:]
+        matches = dict()
+        for person in people:
+            valid = [t for t in tickets if t != person and t not in invalid_links.get(person, [])]
+            if len(valid) == 0:
+                break
+            recip = random.choice(valid)
+            matches[person] = recip
+            tickets.remove(recip)
+        else:
+            return matches
+        if start_time + TIMEOUT < time.time():
+            raise SolvingError('Could not solve.')

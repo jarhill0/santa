@@ -1,6 +1,6 @@
 from .email_util import send_interface
 from .person import Person
-from .solver import solve
+from .solver import loop, draw
 from .text_util import save
 
 
@@ -20,9 +20,17 @@ def run(person_list, invalid_links=None, **kwargs):
     username = kwargs.get('username', None)
     password = kwargs.get('password', None)
     out_mode = kwargs.get('out_mode', 'email').lower()
+    solve_mode = kwargs.get('solve_mode', 'loop').lower()
 
-    solved = solve(person_list, invalid_links)  # solve
+    # solve
+    if solve_mode == 'loop':
+        solved = loop(person_list, invalid_links)
+    elif solve_mode == 'draw':
+        solved = draw(person_list, invalid_links)
+    else:
+        raise ValueError('Unknown solve mode "{}"'.format(solve_mode))
 
+    # output
     if out_mode == 'email':
         failed = send_interface(solved, message, subject, username, password)  # send emails (errors are returned)
         if failed:
