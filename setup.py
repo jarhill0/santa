@@ -6,8 +6,11 @@ MINOR = 2
 PATCH = 0
 
 HERE = path.abspath(path.dirname(__file__))
-with open(path.join(HERE, 'README.rst'), encoding='utf-8') as fp:
-    README = fp.read()
+try:
+    with open(path.join(HERE, 'README.rst'), encoding='utf-8') as fp:
+        README = fp.read()
+except FileNotFoundError:
+    README = ''
 
 setup(
     name='santa',
