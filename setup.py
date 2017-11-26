@@ -3,13 +3,13 @@ from os import path
 
 MAJOR = 0
 MINOR = 2
-PATCH = 1
+PATCH = 2
 
 HERE = path.abspath(path.dirname(__file__))
 try:
     with open(path.join(HERE, 'README.rst'), encoding='utf-8') as fp:
         README = fp.read()
-except FileNotFoundError:
+except IOError:
     README = ''
 
 setup(

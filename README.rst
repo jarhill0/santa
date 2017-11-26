@@ -1,7 +1,7 @@
 Santa
 =====
 
-A Python 3 project to randomly pair Secret Santa gifters and recipients, following a set of constraints, and email
+A Python project to randomly pair Secret Santa gifters and recipients, following a set of constraints, and email
 them, all without the operator seeing the assignments.
 
 Requirements
