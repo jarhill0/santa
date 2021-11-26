@@ -4,6 +4,9 @@ import time
 TIMEOUT = 0.2
 
 
+random.seed()
+
+
 def loop(people, invalid_links):
     """Determine who gives to whom. `people`: a list of Person objects. `invalid_links`: a dict that defines who
     can't give to whom. Returns a dict. Raises SolvingError if it cannot solve."""
