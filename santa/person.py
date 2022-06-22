@@ -12,5 +12,4 @@ class Person:
         return isinstance(other, Person) and self.address == other.address and self.name == other.name
 
     def __hash__(self):
-        # I don't know if this is a valid way to hash and prevent collisions
-        return hash(self.name) * hash(self.address)
+        return hash((self.name, self.address))
